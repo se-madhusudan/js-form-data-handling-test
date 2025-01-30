@@ -1,0 +1,143 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    background-color: rgb(148, 149, 150);
+    font-family: sans-serif;
+    overflow: hidden;
+}
+
+.wrapper {
+    margin: 20px auto;
+    padding: 0 20px;
+    min-width: 375px;
+    max-width: 720px;
+    max-height: 95vh;
+    overflow-y: scroll;
+}
+
+.container {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 20px;
+    background-color: rgb(207, 221, 221);
+    padding: 20px;
+}
+
+h1{
+    font-size: 28px;
+    color: rgb(160, 101, 23);
+    border-bottom: 2px dotted grey;
+    padding-bottom: 10px;
+}
+
+.center {
+    text-align: center;
+}
+
+form {
+    margin: 20px 0;
+}
+
+.required {
+    color: rgb(233, 4, 4);
+}
+
+label {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(85, 57, 4);
+    display: block;
+    padding: 20px 0 5px 0;
+}
+
+input, textarea {
+    display: block;
+}
+
+#name, #email, #phone, #bio {
+    width: 100%;
+    padding: 5px;
+    border-radius: 4px;
+    border: none;
+}
+
+#fs-14 {
+    font-weight: 500;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    background-color: rgb(175, 115, 3);
+    padding: 10px;
+    border: none;
+    color: rgb(240, 235, 235);
+    font-size: 16px;
+    font-weight: 700;
+}
+.btn:hover {
+    cursor: pointer;
+    background-color: rgb(209, 143, 21);
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+.detailsContainer {
+    width: 100%;
+    max-height: 40vh;
+    overflow-x: scroll;
+    overflow-y: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    
+}
+
+thead {
+    background-color: #f5d6d6;
+}
+
+th, td {
+    border: 1px solid #f1ecec;
+    padding: 10px;
+    text-align: left;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #ebe3de;
+}
+tbody tr:nth-child(odd) {
+    background-color: #ffffff;
+}
+
+tbody tr:hover {
+    background-color: #b8b5b5;
+}
+
+.viewBtn, .editBtn {
+    width: 100%;
+    padding: 5px;
+    background-color: #319e34;
+    border: none;
+    border-radius: 4px;
+    color: rgb(243, 243, 243);
+}
+.viewBtn:hover, .editBtn:hover{
+    background-color: #1c741f;
+    cursor: pointer;
+}

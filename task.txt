@@ -1,0 +1,7 @@
+Create a form with field Name, Email, Phone, Gender, bio and image.
+Validate using JavaScript.
+click next button to review all entries before submit.
+submit after review and store data in JSON file.
+fetch data from JSON file and show in table.
+edit data (when click on edit button open a popup for edit).
+view data (when click on edit button open a popup for view data).

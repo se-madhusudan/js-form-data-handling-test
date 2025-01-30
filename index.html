@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Data Handling in JS - Test</title>
+    <link rel="shortcut icon" href="favicon.png" type="image/x-icon">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="wrapper">
+        <div class="container">
+            <h1 class="center">Details Form</h1>
+            <form action="">
+                <label for="name" title="required">Name<span class="required">*</span> : </label>
+                <input type="text" id="name" placeholder="Madhusudan Kumar" maxlength="30" required>
+
+                <label for="email" title="required">Email<span class="required">*</span> : </label>
+                <input type="email" name="email" id="email" placeholder="madhusudan@gmail.com" maxlength="50" required>
+
+                <label for="phone" title="optional">Phone<span> (+91) : </span></label>
+                <input type="tel" name="phone" id="phone" placeholder="8974563728" maxlength="10">
+
+                <label for="gender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
+                <input type="radio" id="male" name="gender" value="male" required class="inline-block">
+                <label for="male" class="inline-block" id="fs-14">Male</label>
+
+                <input type="radio" id="female" name="gender" value="female" required class="inline-block">
+                <label for="female" class="inline-block" id="fs-14">Female</label>
+                <input type="radio" id="other" name="gender" value="other" required class="inline-block">
+                <label for="other" class="inline-block" id="fs-14">Other</label>
+
+                <label for="bio" title="required">Bio<span class="required">*</span> : </label>
+                <textarea name="bio" id="bio" rows="3" maxlength="150" required placeholder="I'm a frontend engineer."></textarea>
+
+                <label for="profile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : </label>
+                <input type="file" name="profile" id="profile" accept="image/jpeg, image/png" required class="inline-block">
+
+                <button class="btn">Next</button>
+            </form>
+            <div class="detailsContainer">
+                <table>
+                    <thead>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th colspan="2">Action</th>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Madhusudan</td>
+                            <td>madhusudan@gmail.com</td>
+                            <td><button class="viewBtn">View</button></td>
+                            <td><button class="editBtn">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>Madhusudan</td>
+                            <td>madhusudan@gmail.com</td>
+                            <td><button class="viewBtn">View</button></td>
+                            <td><button class="editBtn">Edit</button></td>
+                        </tr>
+                        <tr>
+                            <td>Madhusudan</td>
+                            <td>madhusudan@gmail.com</td>
+                            <td><button class="viewBtn">View</button></td>
+                            <td><button class="editBtn">Edit</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
