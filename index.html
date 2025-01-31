@@ -15,7 +15,7 @@
             <!-- initial details form -->
             <form action="" id="detailsForm">
                 <label for="name" title="required">Name<span class="required">*</span> : </label>
-                <input type="text" id="name" placeholder="Madhusudan Kumar" maxlength="30" required>
+                <input type="text" id="name" name="name" placeholder="Madhusudan Kumar" maxlength="30" required>
 
                 <label for="email" title="required">Email<span class="required">*</span> : </label>
                 <input type="email" name="email" id="email" placeholder="madhusudan@gmail.com" maxlength="50" required>
@@ -51,20 +51,20 @@
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Madhusudan</td>
+                            <td>Madhusduan</td>
                             <td>madhusudan@gmail.com</td>
                             <td><button class="viewBtn">View</button></td>
                             <td><button class="editBtn">Edit</button></td>
                         </tr>
                         <tr>
-                            <td>Madhusudan</td>
-                            <td>madhusudan@gmail.com</td>
+                            <td>Alex</td>
+                            <td>alex@gmail.com</td>
                             <td><button class="viewBtn">View</button></td>
                             <td><button class="editBtn">Edit</button></td>
                         </tr>
                         <tr>
-                            <td>Madhusudan</td>
-                            <td>madhusudan@gmail.com</td>
+                            <td>David</td>
+                            <td>David@gmail.com</td>
                             <td><button class="viewBtn">View</button></td>
                             <td><button class="editBtn">Edit</button></td>
                         </tr>
@@ -110,29 +110,29 @@
                 <div class="editPopUp">
                     <h1 class="center">Edit Details</h1>
                     <form action="" id="editForm">
-                        <label for="name" title="required">Name<span class="required">*</span> : </label>
-                        <input type="text" id="name" value="Madhusudan Kumar" maxlength="30" required>
+                        <label for="ediTname" title="required">Name<span class="required">*</span> : </label>
+                        <input type="text" id="ediTname" name="ediTname" value="Madhusudan Kumar" maxlength="30" required>
         
-                        <label for="email" title="required">Email<span class="required">*</span> : </label>
-                        <input type="email" name="email" id="email" value="madhusudan@gmail.com" maxlength="50" required>
+                        <label for="ediTemail" title="required">Email<span class="required">*</span> : </label>
+                        <input type="email" name="ediTemail" id="ediTemail" value="madhusudan@gmail.com" maxlength="50" required>
         
-                        <label for="phone" title="optional">Phone<span> (+91) : </span></label>
-                        <input type="tel" name="phone" id="phone" value="8974563728" maxlength="10">
+                        <label for="ediTphone" title="optional">Phone<span> (+91) : </span></label>
+                        <input type="tel" name="ediTphone" id="ediTphone" value="8974563728" maxlength="10">
         
-                        <label for="gender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
-                        <input type="radio" id="male" name="gender" value="male" required class="inline-block" checked>
-                        <label for="male" class="inline-block" id="fs-14">Male</label>
+                        <label for="ediTgender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
+                        <input type="radio" id="ediTmale" name="ediTgender" value="male" required class="inline-block" checked>
+                        <label for="ediTmale" class="inline-block" id="fs-14">Male</label>
         
-                        <input type="radio" id="female" name="gender" value="female" required class="inline-block">
-                        <label for="female" class="inline-block" id="fs-14">Female</label>
-                        <input type="radio" id="other" name="gender" value="other" required class="inline-block">
-                        <label for="other" class="inline-block" id="fs-14">Other</label>
+                        <input type="radio" id="ediTfemale" name="ediTgender" value="female" required class="inline-block">
+                        <label for="ediTfemale" class="inline-block" id="fs-14">Female</label>
+                        <input type="radio" id="ediTother" name="ediTgender" value="other" required class="inline-block">
+                        <label for="ediTother" class="inline-block" id="fs-14">Other</label>
         
-                        <label for="bio" title="required">Bio<span class="required">*</span> : </label>
-                        <textarea name="bio" id="bio" rows="3" maxlength="150" required>I'm a frontend engineer.</textarea>
+                        <label for="ediTbio" title="required">Bio<span class="required">*</span> : </label>
+                        <textarea name="ediTbio" id="ediTbio" rows="3" maxlength="150" required>I'm a frontend engineer.</textarea>
         
-                        <label for="profile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : </label>
-                        <input type="file" name="profile" id="profile" accept="image/jpeg, image/png" required class="inline-block">
+                        <label for="ediTprofile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : </label>
+                        <input type="file" name="ediTprofile" id="ediTprofile" accept="image/jpeg, image/png" required class="inline-block">
         
                         <button class="btn saveBtn">Save</button>
                         <button class="btn cancelBtn">Cancel</button>
