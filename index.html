@@ -11,7 +11,9 @@
     <div class="wrapper">
         <div class="container">
             <h1 class="center">Details Form</h1>
-            <form action="">
+
+            <!-- initial details form -->
+            <form action="" id="detailsForm">
                 <label for="name" title="required">Name<span class="required">*</span> : </label>
                 <input type="text" id="name" placeholder="Madhusudan Kumar" maxlength="30" required>
 
@@ -38,6 +40,8 @@
 
                 <button class="btn">Next</button>
             </form>
+
+            <!-- Details table container -->
             <div class="detailsContainer">
                 <table>
                     <thead>
@@ -66,6 +70,74 @@
                         </tr>
                     </tbody>
                 </table>
+            </div>
+
+            <!-- Submit Details Pop Up -->
+            <div class="popUp popUpSub">
+                <div class="submitPopUp">
+                    <h1 class="center">Review Details</h1>
+                    <div class="profileContainer">
+                        <img src="./assets/profile.jpg" alt="profile">
+                    </div>
+                    <p>Name: <span class="name">Emily Johnson</span></p>
+                    <p>Email: <span class="email">emily.johnson@example.com</span></p>
+                    <p>Phone: <span class="phone">NA</span></p>
+                    <p>Gender: <span class="gender">Female</span></p>
+                    <p>Bio: <span class="bio">I'm a graphic designer with a keen eye for detail and a love for creativity. I enjoy working on various design projects, from branding to web design.</span></p>
+                    <button class="btn cancelBtn">Cancel</button>
+                    <button class="btn submitBtn">Submit</button>
+                </div>
+            </div>
+
+            <!-- View Details Pop Up -->
+            <div class="popUp popUpView">
+                <div class="viewPopUp">
+                    <h1 class="center">User Details</h1>
+                    <div class="profileContainer">
+                        <img src="./assets/profile.jpg" alt="profile">
+                    </div>
+                    <p>Name: <span class="name">Emily Johnson</span></p>
+                    <p>Email: <span class="email">emily.johnson@example.com</span></p>
+                    <p>Phone: <span class="phone">NA</span></p>
+                    <p>Gender: <span class="gender">Female</span></p>
+                    <p>Bio: <span class="bio">I'm a graphic designer with a keen eye for detail and a love for creativity. I enjoy working on various design projects, from branding to web design.</span></p>
+                    <button class="btn closeBtn">Close</button>
+                </div>
+            </div>
+
+            <!-- Edit Details Pop Up -->
+            <div class="popUp popUpEdit">
+                <div class="editPopUp">
+                    <h1 class="center">Edit Details</h1>
+                    <form action="" id="editForm">
+                        <label for="name" title="required">Name<span class="required">*</span> : </label>
+                        <input type="text" id="name" value="Madhusudan Kumar" maxlength="30" required>
+        
+                        <label for="email" title="required">Email<span class="required">*</span> : </label>
+                        <input type="email" name="email" id="email" value="madhusudan@gmail.com" maxlength="50" required>
+        
+                        <label for="phone" title="optional">Phone<span> (+91) : </span></label>
+                        <input type="tel" name="phone" id="phone" value="8974563728" maxlength="10">
+        
+                        <label for="gender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
+                        <input type="radio" id="male" name="gender" value="male" required class="inline-block" checked>
+                        <label for="male" class="inline-block" id="fs-14">Male</label>
+        
+                        <input type="radio" id="female" name="gender" value="female" required class="inline-block">
+                        <label for="female" class="inline-block" id="fs-14">Female</label>
+                        <input type="radio" id="other" name="gender" value="other" required class="inline-block">
+                        <label for="other" class="inline-block" id="fs-14">Other</label>
+        
+                        <label for="bio" title="required">Bio<span class="required">*</span> : </label>
+                        <textarea name="bio" id="bio" rows="3" maxlength="150" required>I'm a frontend engineer.</textarea>
+        
+                        <label for="profile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : </label>
+                        <input type="file" name="profile" id="profile" accept="image/jpeg, image/png" required class="inline-block">
+        
+                        <button class="btn saveBtn">Save</button>
+                        <button class="btn cancelBtn">Cancel</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

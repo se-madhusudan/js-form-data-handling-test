@@ -10,6 +10,7 @@ body, html {
     background-color: rgb(148, 149, 150);
     font-family: sans-serif;
     overflow: hidden;
+    overflow-y: scroll;
 }
 
 .wrapper {
@@ -17,8 +18,6 @@ body, html {
     padding: 0 20px;
     min-width: 375px;
     max-width: 720px;
-    max-height: 95vh;
-    overflow-y: scroll;
 }
 
 .container {
@@ -85,6 +84,12 @@ input, textarea {
     cursor: pointer;
     background-color: rgb(209, 143, 21);
 }
+.cancelBtn:hover, .closeBtn:hover {
+    background-color: rgb(216, 1, 1);
+}
+.submitBtn:hover, .saveBtn:hover {
+    background-color: green;
+}
 
 .inline-block {
     display: inline-block;
@@ -140,4 +145,93 @@ tbody tr:hover {
 .viewBtn:hover, .editBtn:hover{
     background-color: #1c741f;
     cursor: pointer;
+}
+
+
+
+/* Pop Ups style  */
+.popUpSub, .popUpView, .popUpEdit {
+    display: none;
+}
+
+.popUpEdit {
+    display: block;
+}
+
+.popUp::after {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(60, 80, 80, 0.938);
+    z-index: 9;
+}
+
+/* Submit Details Pop Up */
+.submitPopUp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: calc(375px - 40px);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 10;
+}
+.profileContainer{
+    width: 100px;
+    height: 100px;
+    margin: 20px auto;
+}
+
+.profileContainer img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.submitPopUp p, .viewPopUp p {
+    font-size: 16px;
+    font-weight: 700;
+    color: rgb(85, 47, 4);
+    padding: 5px;
+}
+.submitPopUp .name, .submitPopUp .email, .submitPopUp .phone, .submitPopUp .gender, .submitPopUp .bio, .viewPopUp .name, .viewPopUp .email, .viewPopUp .phone, .viewPopUp .gender, .viewPopUp .bio {
+    font-weight: 400;
+    color: rgb(119, 64, 0);
+}
+
+
+/* View Details Pop Up */
+.viewPopUp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: calc(375px - 40px);
+    border-radius: 20px;
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 10;
+}
+
+
+/* Edit Details Pop Up */
+.editPopUp {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    min-width: calc(375px - 40px);
+    border-radius: 20px;
+    background-color: rgb(235, 235, 235);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    z-index: 10;
 }
