@@ -163,12 +163,15 @@ tbody tr:hover {
 
 
 /* Pop Ups style  */
-.popUpSub, .popUpView, .popUpEdit {
+.popUpSub {
+    display: none;
+} 
+.popUpView {
     display: none;
 }
 
 .popUpEdit {
-    /* display: block; */
+    display: none;
 }
 
 .popUp::after {

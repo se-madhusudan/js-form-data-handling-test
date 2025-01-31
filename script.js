@@ -4,7 +4,7 @@ const nextBtn = document.querySelector('.nextBtn');
 const name = document.querySelector('#name');
 const email = document.querySelector('#email');
 const phone = document.querySelector('#phone');
-const gender = document.querySelector('#detailsForm input[name="gender"]:checked');
+const gender = document.querySelector('input[name="gender"]:checked');
 const bio = document.querySelector('#bio');
 const profile = document.querySelector('#profile');
 
@@ -15,7 +15,7 @@ const saveBtn = document.querySelector('.saveBtn');
 const ediTname = document.querySelector('#ediTname');
 const ediTemail = document.querySelector('#ediTemail');
 const ediTphone = document.querySelector('#ediTphone');
-const ediTgender = document.querySelector('#editForm input[name="gender"]:checked');
+const ediTgender = document.querySelector('input[name="gender"]:checked');
 const ediTbio = document.querySelector('#ediTbio');
 const ediTprofile = document.querySelector('#ediTprofile');
 
@@ -30,7 +30,7 @@ detailsForm.addEventListener('input', () => {
 });
 
 //function to validate the form data and show errors, show submit pop up post data validation, calls submitData()
-const validateData = (name, email, phone, gender, bio, profile, nextBtn) => {
+const validateData = (name, email, phone, form, bio, profile, nextBtn) => {
     let isValid = true;
 
     // validate name
@@ -60,6 +60,7 @@ const validateData = (name, email, phone, gender, bio, profile, nextBtn) => {
     }
 
     // validate gender
+    const gender = form.querySelector('input[name="gender"]:checked');
     if (!gender) {
         document.querySelector('.genderWarning').style.display = 'inline-block';
         isValid = false;
@@ -90,27 +91,26 @@ const validateData = (name, email, phone, gender, bio, profile, nextBtn) => {
 
     // toogle the submit button based on form validity
     nextBtn.disabled = !isValid;
-
-    console.log('isvalid: ', isValid)
-
-    // call the submit data function
-    if(isValid) {
-        document.querySelector('.popUpSub').style.display = 'block';
-    }
 };
 
 //calls the validate data function
 detailsForm.addEventListener('input', (e) => {
     e.preventDefault();
-    validateData(name, email, phone, gender, bio, profile, nextBtn);
+    validateData(name, email, phone, detailsForm, bio, profile, nextBtn);
 });
 
 //calls the validate data function
 editForm.addEventListener('input', (e) => {
     e.preventDefault();
-    validateData(ediTname, ediTemail, ediTphone, ediTgender, ediTbio, ediTprofile, saveBtn);
+    validateData(ediTname, ediTemail, ediTphone, editForm, ediTbio, ediTprofile, saveBtn);
 });
 
+
+//show the form details pop up
+nextBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popUpSub.style.display = 'block';
+});
 
 //cancel the details submission
 cancelSubmitBtn.addEventListener('click', () => {
