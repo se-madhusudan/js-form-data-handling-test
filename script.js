@@ -1,5 +1,27 @@
+//detailsForm 
 const detailsForm = document.querySelector('#detailsForm');
 const nextBtn = document.querySelector('.nextBtn');
+const name = document.querySelector('#name');
+const email = document.querySelector('#email');
+const phone = document.querySelector('#phone');
+const gender = document.querySelector('#detailsForm input[name="gender"]:checked');
+const bio = document.querySelector('#bio');
+const profile = document.querySelector('#profile');
+
+
+//editForms
+const editForm = document.querySelector('#editForm');
+const saveBtn = document.querySelector('.saveBtn');
+const ediTname = document.querySelector('#ediTname');
+const ediTemail = document.querySelector('#ediTemail');
+const ediTphone = document.querySelector('#ediTphone');
+const ediTgender = document.querySelector('#editForm input[name="gender"]:checked');
+const ediTbio = document.querySelector('#ediTbio');
+const ediTprofile = document.querySelector('#ediTprofile');
+
+//popUpSub 
+const popUpSub = document.querySelector('.popUpSub');
+const cancelSubmitBtn = document.querySelector('.popUpSub .cancelBtn');
 
 //checks if all the form fields are filled, if yes then it enables the btn
 detailsForm.addEventListener('input', () => {
@@ -8,14 +30,7 @@ detailsForm.addEventListener('input', () => {
 });
 
 //function to validate the form data and show errors, show submit pop up post data validation, calls submitData()
-const validateData = () => {
-    const name = document.querySelector('#name');
-    const email = document.querySelector('#email');
-    const phone = document.querySelector('#phone');
-    const gender = document.querySelector('input[name="gender"]:checked');
-    const bio = document.querySelector('#bio');
-    const profile = document.querySelector('#profile');
-
+const validateData = (name, email, phone, gender, bio, profile, nextBtn) => {
     let isValid = true;
 
     // validate name
@@ -87,11 +102,20 @@ const validateData = () => {
 //calls the validate data function
 detailsForm.addEventListener('input', (e) => {
     e.preventDefault();
-    validateData()
+    validateData(name, email, phone, gender, bio, profile, nextBtn);
+});
+
+//calls the validate data function
+editForm.addEventListener('input', (e) => {
+    e.preventDefault();
+    validateData(ediTname, ediTemail, ediTphone, ediTgender, ediTbio, ediTprofile, saveBtn);
 });
 
 
-
+//cancel the details submission
+cancelSubmitBtn.addEventListener('click', () => {
+    popUpSub.style.display = 'none'
+});
 
 //function to parse data into json and save in the local storage, hides the submit pop up
 const submitData = () => {
