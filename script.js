@@ -1,12 +1,97 @@
 const detailsForm = document.querySelector('#detailsForm');
+const nextBtn = document.querySelector('.nextBtn');
 
-
-
+//checks if all the form fields are filled, if yes then it enables the btn
+detailsForm.addEventListener('input', () => {
+    const isFormFilled = detailsForm.checkValidity(); //checkValidity is built-in js function, part of HTMLFormElement interface
+    nextBtn.disabled = !isFormFilled;
+});
 
 //function to validate the form data and show errors, show submit pop up post data validation, calls submitData()
 const validateData = () => {
+    const name = document.querySelector('#name');
+    const email = document.querySelector('#email');
+    const phone = document.querySelector('#phone');
+    const gender = document.querySelector('input[name="gender"]:checked');
+    const bio = document.querySelector('#bio');
+    const profile = document.querySelector('#profile');
 
-}
+    let isValid = true;
+
+    // validate name
+    if (!/^[a-zA-Z\s]{1,30}$/.test(name.value)) {
+        document.querySelector('.nameWarning').style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector('.nameWarning').style.display = 'none';
+    }
+
+    // validate email
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
+        document.querySelector('.emailWarning').style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector('.emailWarning').style.display = 'none';
+    }
+
+    // validate phone
+    if(phone.value != '') {
+        if (phone.value && !/^\d{10}$/.test(phone.value)) {
+            document.querySelector('.phoneWarning').style.display = 'inline-block';
+            isValid = false;
+        } else {
+            document.querySelector('.phoneWarning').style.display = 'none';
+        }
+    }
+
+    // validate gender
+    if (!gender) {
+        document.querySelector('.genderWarning').style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector('.genderWarning').style.display = 'none';
+    }
+
+    // validate bio
+    if (!/^[a-zA-Z0-9\s.]{1,150}$/.test(bio.value)) {
+        document.querySelector('.bioWarning').style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector('.bioWarning').style.display = 'none';
+    }
+
+    // validate profile image - for .png, .jpg, .jpeg
+    const fileName = profile.value;
+    function isImageFile(fileName) {
+        return /\.(png|jpg|jpeg)$/i.test(fileName);
+    }
+
+    if (!isImageFile(fileName)) {
+        document.querySelector('.profileWarning').style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector('.profileWarning').style.display = 'none';
+    }
+
+    // toogle the submit button based on form validity
+    nextBtn.disabled = !isValid;
+
+    console.log('isvalid: ', isValid)
+
+    // call the submit data function
+    if(isValid) {
+        document.querySelector('.popUpSub').style.display = 'block';
+    }
+};
+
+//calls the validate data function
+detailsForm.addEventListener('input', (e) => {
+    e.preventDefault();
+    validateData()
+});
+
+
+
 
 //function to parse data into json and save in the local storage, hides the submit pop up
 const submitData = () => {

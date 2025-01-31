@@ -42,8 +42,14 @@ form {
     margin: 20px 0;
 }
 
-.required {
+.required, .warning {
     color: rgb(233, 4, 4);
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.warning {
+    display: none;
 }
 
 label {
@@ -79,6 +85,13 @@ input, textarea {
     color: rgb(240, 235, 235);
     font-size: 16px;
     font-weight: 700;
+}
+.btn:disabled {
+    background-color: rgb(110, 110, 110);
+}
+.btn:disabled:hover {
+    background-color: rgb(110, 110, 110);
+    cursor: not-allowed;
 }
 .btn:hover {
     cursor: pointer;
@@ -155,7 +168,7 @@ tbody tr:hover {
 }
 
 .popUpEdit {
-    display: block;
+    /* display: block; */
 }
 
 .popUp::after {

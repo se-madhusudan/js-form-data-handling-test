@@ -14,13 +14,13 @@
 
             <!-- initial details form -->
             <form action="" id="detailsForm">
-                <label for="name" title="required">Name<span class="required">*</span> : </label>
+                <label for="name" title="required">Name<span class="required">*</span> : <span class="warning nameWarning">only allowed a-z, A-Z, space (max 30 characters allowed)</span></label>
                 <input type="text" id="name" name="name" placeholder="Madhusudan Kumar" maxlength="30" required>
 
-                <label for="email" title="required">Email<span class="required">*</span> : </label>
+                <label for="email" title="required">Email<span class="required">*</span> : <span class="warning emailWarning">only allowed a-z, A-Z, 0-9, @, period (max 50 characters allowed)</span></label>
                 <input type="email" name="email" id="email" placeholder="madhusudan@gmail.com" maxlength="50" required>
 
-                <label for="phone" title="optional">Phone<span> (+91) : </span></label>
+                <label for="phone" title="optional">Phone<span> (+91) : <span class="warning phoneWarning">only allowed 0-9 (must be 10 digits)</span></span></label>
                 <input type="tel" name="phone" id="phone" placeholder="8974563728" maxlength="10">
 
                 <label for="gender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
@@ -31,14 +31,15 @@
                 <label for="female" class="inline-block" id="fs-14">Female</label>
                 <input type="radio" id="other" name="gender" value="other" required class="inline-block">
                 <label for="other" class="inline-block" id="fs-14">Other</label>
+                <span class="warning genderWarning">required</span>
 
-                <label for="bio" title="required">Bio<span class="required">*</span> : </label>
+                <label for="bio" title="required">Bio<span class="required">*</span> : <span class="warning bioWarning">only allowed a-z, A-Z, 0-9, space, period (max 150 characters allowed)</span></label>
                 <textarea name="bio" id="bio" rows="3" maxlength="150" required placeholder="I'm a frontend engineer."></textarea>
 
-                <label for="profile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : </label>
+                <label for="profile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : <span class="warning profileWarning">only allowed .jpg, .jpeg, .png</span></label>
                 <input type="file" name="profile" id="profile" accept="image/jpeg, image/png" required class="inline-block">
 
-                <button class="btn">Next</button>
+                <button class="btn nextBtn" disabled>Next</button>
             </form>
 
             <!-- Details table container -->
