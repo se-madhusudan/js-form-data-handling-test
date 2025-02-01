@@ -217,7 +217,7 @@ tbody tr:hover {
     color: rgb(85, 47, 4);
     padding: 5px;
 }
-.submitPopUp .name, .submitPopUp .email, .submitPopUp .phone, .submitPopUp .gender, .submitPopUp .bio, .viewPopUp .name, .viewPopUp .email, .viewPopUp .phone, .viewPopUp .gender, .viewPopUp .bio {
+.submitPopUp .reviewName, .submitPopUp .reviewEmail, .submitPopUp .reviewPhone, .submitPopUp .reviewGender, .submitPopUp .reviewBio, .viewPopUp .viewName, .viewPopUp .viewEmail, .viewPopUp .viewPhone, .viewPopUp .viewGender, .viewPopUp .viewBio {
     font-weight: 400;
     color: rgb(119, 64, 0);
 }

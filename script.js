@@ -29,7 +29,7 @@ detailsForm.addEventListener('input', () => {
     nextBtn.disabled = !isFormFilled;
 });
 
-//function to validate the form data and show errors, show submit pop up post data validation, calls submitData()
+//function to validate the form data and show errors, show submit pop up post data validation, calls reviewData()
 const validateData = (name, email, phone, form, bio, profile, nextBtn) => {
     let isValid = true;
 
@@ -49,7 +49,7 @@ const validateData = (name, email, phone, form, bio, profile, nextBtn) => {
         document.querySelector('.emailWarning').style.display = 'none';
     }
 
-    // validate phone
+    // validate phone - only when filled
     if(phone.value != '') {
         if (phone.value && !/^\d{10}$/.test(phone.value)) {
             document.querySelector('.phoneWarning').style.display = 'inline-block';
@@ -76,21 +76,25 @@ const validateData = (name, email, phone, form, bio, profile, nextBtn) => {
         document.querySelector('.bioWarning').style.display = 'none';
     }
 
-    // validate profile image - for .png, .jpg, .jpeg
+    // validate profile image - for .png, .jpg, .jpeg, only when file is selected
     const fileName = profile.value;
-    function isImageFile(fileName) {
-        return /\.(png|jpg|jpeg)$/i.test(fileName);
-    }
-
-    if (!isImageFile(fileName)) {
-        document.querySelector('.profileWarning').style.display = 'inline-block';
-        isValid = false;
-    } else {
-        document.querySelector('.profileWarning').style.display = 'none';
+    if(fileName != '') {
+        function isImageFile(fileName) {
+            return /\.(png|jpg|jpeg)$/i.test(fileName);
+        }
+    
+        if (!isImageFile(fileName)) {
+            document.querySelector('.profileWarning').style.display = 'inline-block';
+            isValid = false;
+        } else {
+            document.querySelector('.profileWarning').style.display = 'none';
+        }
     }
 
     // toogle the submit button based on form validity
     nextBtn.disabled = !isValid;
+
+    reviewData(profile, name.value, email.value, phone.value, gender.value, bio.value); //profile - not profile.value because we want actual file input element not it's value
 };
 
 //calls the validate data function
@@ -116,6 +120,32 @@ nextBtn.addEventListener('click', (e) => {
 cancelSubmitBtn.addEventListener('click', () => {
     popUpSub.style.display = 'none'
 });
+
+
+//function to show the form details for review
+const reviewData = (profile, name, email, phone, gender, bio) => {
+    const reviewProfile = document.querySelector('.reviewProfile');
+    const reviewName = document.querySelector('.reviewName');
+    const reviewEmail = document.querySelector('.reviewEmail');
+    const reviewPhone = document.querySelector('.reviewPhone');
+    const reviewGender = document.querySelector('.reviewGender');
+    const reviewBio = document.querySelector('.reviewBio');
+
+    //js can't directly access the file path due to security reason, so we need to create object url
+    // Convert file input to a blob URL
+    if (profile.files.length > 0) {
+        const file = profile.files[0]; //gets selected file
+        reviewProfile.src = URL.createObjectURL(file); // Create and set object URL
+    } else {
+        reviewProfile.src = gender ==  'male' ? './assets/male.jpg' : './assets/female.jpg';
+    }
+
+    reviewName.innerHTML = name;
+    reviewEmail.innerHTML = email;
+    reviewPhone.innerHTML = phone === '' ? 'NA' : phone;
+    reviewGender.innerHTML = gender;
+    reviewBio.innerHTML = bio;
+}
 
 //function to parse data into json and save in the local storage, hides the submit pop up
 const submitData = () => {

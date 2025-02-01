@@ -36,8 +36,8 @@
                 <label for="bio" title="required">Bio<span class="required">*</span> : <span class="warning bioWarning">only allowed a-z, A-Z, 0-9, space, period (max 150 characters allowed)</span></label>
                 <textarea name="bio" id="bio" rows="3" maxlength="150" required placeholder="I'm a frontend engineer."></textarea>
 
-                <label for="profile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : <span class="warning profileWarning">only allowed .jpg, .jpeg, .png</span></label>
-                <input type="file" name="profile" id="profile" accept="image/jpeg, image/png" required class="inline-block">
+                <label for="profile" title="optional" class="inline-block">Profile Picture : <span class="warning profileWarning">only allowed .jpg, .jpeg, .png</span></label>
+                <input type="file" name="profile" id="profile" accept="image/jpeg, image/png" class="inline-block">
 
                 <button class="btn nextBtn" disabled>Next</button>
             </form>
@@ -78,13 +78,13 @@
                 <div class="submitPopUp">
                     <h1 class="center">Review Details</h1>
                     <div class="profileContainer">
-                        <img src="./assets/profile.jpg" alt="profile">
+                        <img src="" alt="profile" class="reviewProfile">
                     </div>
-                    <p>Name: <span class="name">Emily Johnson</span></p>
-                    <p>Email: <span class="email">emily.johnson@example.com</span></p>
-                    <p>Phone: <span class="phone">NA</span></p>
-                    <p>Gender: <span class="gender">Female</span></p>
-                    <p>Bio: <span class="bio">I'm a graphic designer with a keen eye for detail and a love for creativity. I enjoy working on various design projects, from branding to web design.</span></p>
+                    <p>Name: <span class="reviewName">Emily Johnson</span></p>
+                    <p>Email: <span class="reviewEmail">emily.johnson@example.com</span></p>
+                    <p>Phone: <span class="reviewPhone">NA</span></p>
+                    <p>Gender: <span class="reviewGender">Female</span></p>
+                    <p>Bio: <span class="reviewBio">I'm a graphic designer with a keen eye for detail and a love for creativity. I enjoy working on various design projects, from branding to web design.</span></p>
                     <button class="btn cancelBtn">Cancel</button>
                     <button class="btn submitBtn">Submit</button>
                 </div>
@@ -95,13 +95,13 @@
                 <div class="viewPopUp">
                     <h1 class="center">User Details</h1>
                     <div class="profileContainer">
-                        <img src="./assets/profile.jpg" alt="profile">
+                        <img src="" alt="profile">
                     </div>
-                    <p>Name: <span class="name">Emily Johnson</span></p>
-                    <p>Email: <span class="email">emily.johnson@example.com</span></p>
-                    <p>Phone: <span class="phone">NA</span></p>
-                    <p>Gender: <span class="gender">Female</span></p>
-                    <p>Bio: <span class="bio">I'm a graphic designer with a keen eye for detail and a love for creativity. I enjoy working on various design projects, from branding to web design.</span></p>
+                    <p>Name: <span class="viewName">Emily Johnson</span></p>
+                    <p>Email: <span class="viewEmail">emily.johnson@example.com</span></p>
+                    <p>Phone: <span class="viewPhone">NA</span></p>
+                    <p>Gender: <span class="viewGender">Female</span></p>
+                    <p>Bio: <span class="viewBio">I'm a graphic designer with a keen eye for detail and a love for creativity. I enjoy working on various design projects, from branding to web design.</span></p>
                     <button class="btn closeBtn">Close</button>
                 </div>
             </div>
@@ -132,8 +132,8 @@
                         <label for="ediTbio" title="required">Bio<span class="required">*</span> : </label>
                         <textarea name="ediTbio" id="ediTbio" rows="3" maxlength="150" required>I'm a frontend engineer.</textarea>
         
-                        <label for="ediTprofile" title="required" class="inline-block">Profile Picture<span class="required">*</span> : </label>
-                        <input type="file" name="ediTprofile" id="ediTprofile" accept="image/jpeg, image/png" required class="inline-block">
+                        <label for="ediTprofile" title="optional" class="inline-block">Profile Picture : </label>
+                        <input type="file" name="ediTprofile" id="ediTprofile" accept="image/jpeg, image/png" class="inline-block">
         
                         <button class="btn saveBtn" disabled>Save</button>
                         <button class="btn cancelBtn">Cancel</button>
