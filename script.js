@@ -22,6 +22,12 @@ const ediTprofile = document.querySelector('#ediTprofile');
 //popUpSub 
 const popUpSub = document.querySelector('.popUpSub');
 const cancelSubmitBtn = document.querySelector('.popUpSub .cancelBtn');
+const submitBtn = document.querySelector('.submitBtn');
+
+//popUpView
+const popUpView = document.querySelector('.popUpView');
+const closeBtn = document.querySelector('.closeBtn');
+
 
 //checks if all the form fields are filled, if yes then it enables the btn
 detailsForm.addEventListener('input', () => {
@@ -121,6 +127,17 @@ cancelSubmitBtn.addEventListener('click', () => {
     popUpSub.style.display = 'none'
 });
 
+//calls the submitData() to save data in localStorage in json
+submitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    submitData(name.value, email.value, phone.value, detailsForm, bio.value, profile);
+});
+
+//hides the popUpView
+closeBtn.addEventListener('click', () => {
+    popUpView.style.display = 'none';
+});
+
 
 //function to show the form details for review
 const reviewData = (profile, name, email, phone, gender, bio) => {
@@ -135,7 +152,7 @@ const reviewData = (profile, name, email, phone, gender, bio) => {
     // Convert file input to a blob URL
     if (profile.files.length > 0) {
         const file = profile.files[0]; //gets selected file
-        reviewProfile.src = URL.createObjectURL(file); // Create and set object URL
+        reviewProfile.src = URL.createObjectURL(file); // Create and set object URL - it's temporary and works on current session only
     } else {
         reviewProfile.src = gender ==  'male' ? './assets/male.jpg' : './assets/female.jpg';
     }
@@ -147,14 +164,89 @@ const reviewData = (profile, name, email, phone, gender, bio) => {
     reviewBio.innerHTML = bio;
 }
 
-//function to parse data into json and save in the local storage, hides the submit pop up
-const submitData = () => {
+//function to parse data into json and save in the local storage, hides the submit pop up, and calls the tableData() to show some data in table rows(name, email).
+const submitData = (name, email, phone, detailsForm, bio, profile) => {
+    let pic = '';
+    if (profile.files.length > 0) {
+        //to store image in localStorage as Base64 string, it's accessible in any session
+        const file = profile.files[0];
+        const reader = new FileReader();
 
+        reader.onloadend = function() {
+            //store Base64 data
+            pic = reader.result; 
+
+            //call only after image is ready
+            saveUserData(name, email, phone, detailsForm, bio, pic);
+        };
+       reader.readAsDataURL(file);
+    } else {
+        saveUserData(name, email, phone, detailsForm, bio, '');
+    }
+};
+const saveUserData = (name, email, phone, detailsForm, bio, pic) => {
+    //to get the value otherwise, it returns null
+    const gender = detailsForm.querySelector('input[name="gender"]:checked').value;
+    
+    const userData = {
+        name,
+        email,
+        phone,
+        gender,
+        bio,
+        pic
+    };
+
+    console.log("Saved Picture:", pic);
+    
+    // Get existing data from localStorage
+    let storedData = localStorage.getItem('userData');
+    let users = storedData ? JSON.parse(storedData) : [];
+    
+    users.push(userData);
+    localStorage.setItem('userData', JSON.stringify(users));
+    
+    //hide popUpSub
+    popUpSub.style.display = 'none';
+
+    //form reset
+    detailsForm.reset();
+
+    //disable next button
+    nextBtn.disabled = true;
+    
+    //update the table data
+    tableData();
 }
 
 //function to fetch data from local storage and view data, shows view pop up
-const viewData = () => {
+const viewData = (index) => {
+    let storedData = localStorage.getItem('userData');
+    let users = storedData ? JSON.parse(storedData) : [];
+    let user = users[index];
 
+    const viewName = document.querySelector('.viewName'); 
+    const viewEmail = document.querySelector('.viewEmail'); 
+    const viewPhone = document.querySelector('.viewPhone'); 
+    const viewGender = document.querySelector('.viewGender');
+    const viewBio = document.querySelector('.viewBio');
+    const viewProfile = document.querySelector('.profileImage');
+
+    if(user) {
+        viewName.innerHTML = user.name;
+        viewEmail.innerHTML = user.email;
+        viewGender.innerHTML = user.gender;
+        viewBio.innerHTML = user.bio;
+        viewPhone.innerHTML = user.phone != '' ? user.phone : 'NA';
+        console.log("Retrieved Picture:", user.pic); 
+        if(user.pic && user.pic.startsWith('data:image')) {
+            viewProfile.src = user.pic; // This should be a Base64 image
+        } else {
+            viewProfile.src = user.gender === 'male' ? './assets/male.jpg' : './assets/female.jpg';
+        }
+    };
+
+    popUpView.style.display = "block";
 }
 
 //function to pre-fill the form data in form after fetching from local storage, calls validateData()
@@ -164,5 +256,22 @@ const editData = () => {
 
 //function to fetch the name, email from the local storage and show in table row to allow viewing and editing all data
 const tableData = () => {
-
+    const tableBody = document.querySelector('tbody');
+    tableBody.innerHTML = '';
+    
+    let storedData = localStorage.getItem('userData');
+    let users = storedData ? JSON.parse(storedData) : [];
+    
+    users.forEach((user, index) => {
+        let row = `<tr>
+            <td>${user.name}</td>
+            <td>${user.email}</td>
+            <td><button class="viewBtn" onclick="viewData(${index})">View</button></td>
+            <td><button class="editBtn" onclick="editData(${index})">Edit</button></td>
+        </tr>`;
+        tableBody.innerHTML += row;
+    });
 }
+
+// on page reload, fetch data from localStorage and show in table
+document.addEventListener('DOMContentLoaded', tableData);
