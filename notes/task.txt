@@ -3,5 +3,5 @@ Validate using JavaScript. - done
 click next button to review all entries before submit. - done
 submit after review and store data in JSON file. - done
 fetch data from JSON file and show in table. - done 
-view data (when click on view button open a popup for view data).
-edit data (when click on edit button open a popup for edit).
+view data (when click on view button open a popup for view data). - done
+edit data (when click on edit button open a popup for edit). - done

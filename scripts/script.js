@@ -69,7 +69,7 @@ const validateData = (name, email, phone, form, bio, profile, btn) => {
     }
 
     // validate gender
-    const gender = form.querySelector('input[name="gender"]:checked');
+    const gender = form.id ==='detailsForm' ? form.querySelector('input[name="gender"]:checked') : form.querySelector('input[name="ediTgender"]:checked');
     if (!gender) {
         document.querySelector(`.${formType}genderWarning`).style.display = 'inline-block';
         isValid = false;
@@ -95,12 +95,7 @@ const validateData = (name, email, phone, form, bio, profile, btn) => {
 
     btn.disabled = !isValid;
     
-    // For detailsForm only
-    if (form.id === 'detailsForm') {
-        reviewData(profile, name.value, email.value, phone.value, gender?.value || '', bio.value);
-    }
-
-    // reviewData(profile, name.value, email.value, phone.value, gender.value, bio.value); //profile - not profile.value because we want actual file input element not it's value
+    reviewData(profile, name.value, email.value, phone.value, gender?.value || '', bio.value);//profile - not profile.value because we want actual file input element not it's value
 };
 
 //calls the validate data function
@@ -109,15 +104,9 @@ detailsForm.addEventListener('input', (e) => {
     validateData(name, email, phone, detailsForm, bio, profile, nextBtn);
 });
 
-editForm.checkValidity = () => {
-    return document.querySelectorAll('#editForm :invalid').length === 0;
-};
-
 //calls the validate data function
 editForm.addEventListener('input', (e) => {
     e.preventDefault();
-    const isFormFilled = editForm.checkValidity();
-    saveBtn.disabled = !isFormFilled;
     validateData(ediTname, ediTemail, ediTphone, editForm, ediTbio, ediTprofile, saveBtn);
 });
 
@@ -145,7 +134,8 @@ closeBtn.addEventListener('click', () => {
 });
 
 //cancels the popUpEdit
-cancelEdit.addEventListener('click', () => {
+cancelEdit.addEventListener('click', (e) => {
+    e.preventDefault();
     popUpEdit.style.display = 'none';
 });
 
@@ -164,7 +154,7 @@ saveBtn.addEventListener('click', (e) => {
         name: ediTname.value,
         email: ediTemail.value,
         phone: ediTphone.value,
-        gender: editForm.querySelector('input[name="gender"]:checked').value,
+        gender: editForm.querySelector('input[name="ediTgender"]:checked').value,
         bio: ediTbio.value,
         pic: users[index].pic // existing image as default
     };
@@ -184,6 +174,7 @@ saveBtn.addEventListener('click', (e) => {
     };
 
     handleImageUpdate();
+    console.log('Edited data saved!');
 });
 
 
@@ -315,7 +306,12 @@ const editData = (index) => {
     
     // Set new gender selection
     const selectedGender = editForm.querySelector(`input[name="gender"][value="${user.gender}"]`);
-    if (selectedGender) selectedGender.checked = true;
+    if (selectedGender) {
+        selectedGender.checked = true;
+
+    // Manually trigger an input event to update validation
+    selectedGender.dispatchEvent(new Event('input', { bubbles: true }));
+    }
 
     // Add gender change listener
     genderRadios.forEach(radio => {
