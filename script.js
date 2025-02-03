@@ -28,6 +28,10 @@ const submitBtn = document.querySelector('.submitBtn');
 const popUpView = document.querySelector('.popUpView');
 const closeBtn = document.querySelector('.closeBtn');
 
+//popUpEdit
+const popUpEdit = document.querySelector('.popUpEdit');
+const cancelEdit = document.querySelector('.popUpEdit .cancelBtn');
+
 
 //checks if all the form fields are filled, if yes then it enables the btn
 detailsForm.addEventListener('input', () => {
@@ -36,71 +40,67 @@ detailsForm.addEventListener('input', () => {
 });
 
 //function to validate the form data and show errors, show submit pop up post data validation, calls reviewData()
-const validateData = (name, email, phone, form, bio, profile, nextBtn) => {
+const validateData = (name, email, phone, form, bio, profile, btn) => {
     let isValid = true;
+    const formType = form.id === 'detailsForm' ? '' : 'ediT';
 
     // validate name
     if (!/^[a-zA-Z\s]{1,30}$/.test(name.value)) {
-        document.querySelector('.nameWarning').style.display = 'inline-block';
+        document.querySelector(`.${formType}nameWarning`).style.display = 'inline-block';
         isValid = false;
     } else {
-        document.querySelector('.nameWarning').style.display = 'none';
+        document.querySelector(`.${formType}nameWarning`).style.display = 'none';
     }
 
     // validate email
-    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email.value)) {
-        document.querySelector('.emailWarning').style.display = 'inline-block';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value)) {
+        document.querySelector(`.${formType}emailWarning`).style.display = 'inline-block';
         isValid = false;
     } else {
-        document.querySelector('.emailWarning').style.display = 'none';
+        document.querySelector(`.${formType}emailWarning`).style.display = 'none';
     }
 
     // validate phone - only when filled
-    if(phone.value != '') {
-        if (phone.value && !/^\d{10}$/.test(phone.value)) {
-            document.querySelector('.phoneWarning').style.display = 'inline-block';
-            isValid = false;
-        } else {
-            document.querySelector('.phoneWarning').style.display = 'none';
-        }
+    if (phone.value && !/^\d{10}$/.test(phone.value)) {
+        document.querySelector(`.${formType}phoneWarning`).style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector(`.${formType}phoneWarning`).style.display = 'none';
     }
 
     // validate gender
     const gender = form.querySelector('input[name="gender"]:checked');
     if (!gender) {
-        document.querySelector('.genderWarning').style.display = 'inline-block';
+        document.querySelector(`.${formType}genderWarning`).style.display = 'inline-block';
         isValid = false;
     } else {
-        document.querySelector('.genderWarning').style.display = 'none';
+        document.querySelector(`.${formType}genderWarning`).style.display = 'none';
     }
 
     // validate bio
-    if (!/^[a-zA-Z0-9\s.]{1,150}$/.test(bio.value)) {
-        document.querySelector('.bioWarning').style.display = 'inline-block';
+    if (!/^[\s\S]{1,150}$/.test(bio.value)) {
+        document.querySelector(`.${formType}bioWarning`).style.display = 'inline-block';
         isValid = false;
     } else {
-        document.querySelector('.bioWarning').style.display = 'none';
+        document.querySelector(`.${formType}bioWarning`).style.display = 'none';
     }
 
     // validate profile image - for .png, .jpg, .jpeg, only when file is selected
-    const fileName = profile.value;
-    if(fileName != '') {
-        function isImageFile(fileName) {
-            return /\.(png|jpg|jpeg)$/i.test(fileName);
-        }
-    
-        if (!isImageFile(fileName)) {
-            document.querySelector('.profileWarning').style.display = 'inline-block';
-            isValid = false;
-        } else {
-            document.querySelector('.profileWarning').style.display = 'none';
-        }
+    if (profile.value && !/\.(png|jpg|jpeg)$/i.test(profile.value)) {
+        document.querySelector(`.${formType}profileWarning`).style.display = 'inline-block';
+        isValid = false;
+    } else {
+        document.querySelector(`.${formType}profileWarning`).style.display = 'none';
     }
 
-    // toogle the submit button based on form validity
-    nextBtn.disabled = !isValid;
+    btn.disabled = !isValid;
+    
+    // For detailsForm only
+    if (form.id === 'detailsForm') {
+        reviewData(profile, name.value, email.value, phone.value, gender?.value || '', bio.value);
+    }
 
-    reviewData(profile, name.value, email.value, phone.value, gender.value, bio.value); //profile - not profile.value because we want actual file input element not it's value
+    // reviewData(profile, name.value, email.value, phone.value, gender.value, bio.value); //profile - not profile.value because we want actual file input element not it's value
 };
 
 //calls the validate data function
@@ -109,9 +109,15 @@ detailsForm.addEventListener('input', (e) => {
     validateData(name, email, phone, detailsForm, bio, profile, nextBtn);
 });
 
+editForm.checkValidity = () => {
+    return document.querySelectorAll('#editForm :invalid').length === 0;
+};
+
 //calls the validate data function
 editForm.addEventListener('input', (e) => {
     e.preventDefault();
+    const isFormFilled = editForm.checkValidity();
+    saveBtn.disabled = !isFormFilled;
     validateData(ediTname, ediTemail, ediTphone, editForm, ediTbio, ediTprofile, saveBtn);
 });
 
@@ -136,6 +142,48 @@ submitBtn.addEventListener('click', (e) => {
 //hides the popUpView
 closeBtn.addEventListener('click', () => {
     popUpView.style.display = 'none';
+});
+
+//cancels the popUpEdit
+cancelEdit.addEventListener('click', () => {
+    popUpEdit.style.display = 'none';
+});
+
+//saves the edited data
+saveBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+
+    const index = editForm.dataset.editIndex;
+    if (index === undefined) return;
+
+    let storedData = localStorage.getItem('userData');
+    let users = storedData ? JSON.parse(storedData) : [];
+    
+    // Get updated values
+    const updatedUser = {
+        name: ediTname.value,
+        email: ediTemail.value,
+        phone: ediTphone.value,
+        gender: editForm.querySelector('input[name="gender"]:checked').value,
+        bio: ediTbio.value,
+        pic: users[index].pic // existing image as default
+    };
+
+    // Handle new profile image
+    const handleImageUpdate = () => {
+        if (ediTprofile.files.length > 0) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                updatedUser.pic = e.target.result;
+                updateUserData(users, index, updatedUser);
+            };
+            reader.readAsDataURL(ediTprofile.files[0]);
+        } else {
+            updateUserData(users, index, updatedUser);
+        }
+    };
+
+    handleImageUpdate();
 });
 
 
@@ -196,8 +244,6 @@ const saveUserData = (name, email, phone, detailsForm, bio, pic) => {
         bio,
         pic
     };
-
-    console.log("Saved Picture:", pic);
     
     // Get existing data from localStorage
     let storedData = localStorage.getItem('userData');
@@ -238,7 +284,7 @@ const viewData = (index) => {
         viewGender.innerHTML = user.gender;
         viewBio.innerHTML = user.bio;
         viewPhone.innerHTML = user.phone != '' ? user.phone : 'NA';
-        console.log("Retrieved Picture:", user.pic); 
+
         if(user.pic && user.pic.startsWith('data:image')) {
             viewProfile.src = user.pic; // This should be a Base64 image
         } else {
@@ -250,9 +296,51 @@ const viewData = (index) => {
 }
 
 //function to pre-fill the form data in form after fetching from local storage, calls validateData()
-const editData = () => {
+const editData = (index) => {
+    let storedData = localStorage.getItem('userData');
+    let users = storedData ? JSON.parse(storedData) : [];
+    let user = users[index];
 
+    // Store current edit index in the form
+    editForm.dataset.editIndex = index;
+        
+    ediTname.value = user.name;
+    ediTemail.value = user.email;
+    ediTphone.value = user.phone || '';
+    ediTbio.value = user.bio;
+
+    // Clear existing gender selection first
+    const genderRadios = editForm.querySelectorAll('input[name="gender"]');
+    genderRadios.forEach(radio => radio.checked = false);
+    
+    // Set new gender selection
+    const selectedGender = editForm.querySelector(`input[name="gender"][value="${user.gender}"]`);
+    if (selectedGender) selectedGender.checked = true;
+
+    // Add gender change listener
+    genderRadios.forEach(radio => {
+        radio.addEventListener('change', () => {
+            validateData(ediTname, ediTemail, ediTphone, editForm, ediTbio, ediTprofile, saveBtn);
+        });
+    });
+
+    
+    // Enable/disable save button based on initial validity
+    validateData(ediTname, ediTemail, ediTphone, editForm, ediTbio, ediTprofile, saveBtn);
+
+    popUpEdit.style.display = "block";
 }
+
+//function to update the data after edit
+const updateUserData = (users, index, updatedUser) => {
+    users[index] = updatedUser;
+    localStorage.setItem('userData', JSON.stringify(users));
+    
+    popUpEdit.style.display = "none";
+    tableData(); //refresh the data in table
+    
+    ediTprofile.value = '';
+};
 
 //function to fetch the name, email from the local storage and show in table row to allow viewing and editing all data
 const tableData = () => {

@@ -99,13 +99,13 @@
                 <div class="editPopUp">
                     <h1 class="center">Edit Details</h1>
                     <form action="" id="editForm">
-                        <label for="ediTname" title="required">Name<span class="required">*</span> : </label>
+                        <label for="ediTname" title="required">Name<span class="required">*</span> : <span class="warning ediTnameWarning">only allowed a-z, A-Z, space (max 30 characters allowed)</span></label>
                         <input type="text" id="ediTname" name="ediTname" value="Madhusudan Kumar" maxlength="30" required>
         
-                        <label for="ediTemail" title="required">Email<span class="required">*</span> : </label>
+                        <label for="ediTemail" title="required">Email<span class="required">*</span> : <span class="warning ediTemailWarning">only allowed a-z, A-Z, 0-9, @, period (max 50 characters allowed)</span></label>
                         <input type="email" name="ediTemail" id="ediTemail" value="madhusudan@gmail.com" maxlength="50" required>
         
-                        <label for="ediTphone" title="optional">Phone<span> (+91) : </span></label>
+                        <label for="ediTphone" title="optional">Phone<span> (+91) : <span class="warning ediTphoneWarning">only allowed 0-9 (must be 10 digits)</span></span></label>
                         <input type="tel" name="ediTphone" id="ediTphone" value="8974563728" maxlength="10">
         
                         <label for="ediTgender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
@@ -116,11 +116,12 @@
                         <label for="ediTfemale" class="inline-block" id="fs-14">Female</label>
                         <input type="radio" id="ediTother" name="ediTgender" value="other" required class="inline-block">
                         <label for="ediTother" class="inline-block" id="fs-14">Other</label>
+                        <span class="warning ediTgenderWarning">required</span>
         
-                        <label for="ediTbio" title="required">Bio<span class="required">*</span> : </label>
+                        <label for="ediTbio" title="required">Bio<span class="required">*</span> : <span class="warning ediTbioWarning">only allowed a-z, A-Z, 0-9, space, period (max 150 characters allowed)</span></label>
                         <textarea name="ediTbio" id="ediTbio" rows="3" maxlength="150" required>I'm a frontend engineer.</textarea>
         
-                        <label for="ediTprofile" title="optional" class="inline-block">Profile Picture : </label>
+                        <label for="ediTprofile" title="optional" class="inline-block">Profile Picture : <span class="warning ediTprofileWarning">only allowed .jpg, .jpeg, .png</span></label>
                         <input type="file" name="ediTprofile" id="ediTprofile" accept="image/jpeg, image/png" class="inline-block">
         
                         <button class="btn saveBtn" disabled>Save</button>
