@@ -32,7 +32,6 @@ const closeBtn = document.querySelector('.closeBtn');
 const popUpEdit = document.querySelector('.popUpEdit');
 const cancelEdit = document.querySelector('.popUpEdit .cancelBtn');
 
-
 //checks if all the form fields are filled, if yes then it enables the btn
 detailsForm.addEventListener('input', () => {
     const isFormFilled = detailsForm.checkValidity(); //checkValidity is built-in js function, part of HTMLFormElement interface
@@ -170,40 +169,40 @@ cancelEdit.addEventListener('click', (e) => {
 saveBtn.addEventListener('click', (e) => {
     e.preventDefault();
 
-    const index = editForm.dataset.editIndex;
-    if (index === undefined) return;
-
-    let storedData = localStorage.getItem('userData');
-    let users = storedData ? JSON.parse(storedData) : [];
+    if(validateData(ediTname, ediTemail, ediTphone, editForm, ediTbio, ediTprofile, saveBtn)) {
+        const index = editForm.dataset.editIndex;
+        if (index === undefined) return;
     
-    // Get updated values
-    const updatedUser = {
-        name: ediTname.value,
-        email: ediTemail.value,
-        phone: ediTphone.value,
-        gender: editForm.querySelector('input[name="ediTgender"]:checked').value,
-        bio: ediTbio.value,
-        pic: users[index].pic // existing image as default
-    };
-
-    // Handle new profile image
-    const handleImageUpdate = () => {
-        if (ediTprofile.files.length > 0) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                updatedUser.pic = e.target.result;
+        let storedData = localStorage.getItem('userData');
+        let users = storedData ? JSON.parse(storedData) : [];
+        
+        // Get updated values
+        const updatedUser = {
+            name: ediTname.value,
+            email: ediTemail.value,
+            phone: ediTphone.value,
+            gender: editForm.querySelector('input[name="ediTgender"]:checked').value,
+            bio: ediTbio.value,
+            pic: users[index].pic // existing image as default
+        };
+    
+        // Handle new profile image
+        const handleImageUpdate = () => {
+            if (ediTprofile.files.length > 0) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    updatedUser.pic = e.target.result;
+                    updateUserData(users, index, updatedUser);
+                };
+                reader.readAsDataURL(ediTprofile.files[0]);
+            } else {
                 updateUserData(users, index, updatedUser);
-            };
-            reader.readAsDataURL(ediTprofile.files[0]);
-        } else {
-            updateUserData(users, index, updatedUser);
-        }
-    };
-
-    handleImageUpdate();
-    console.log('Edited data saved!');
+            }
+        };
+    
+        handleImageUpdate();
+    }
 });
-
 
 //function to show the form details for review
 const reviewData = (profile, name, email, phone, gender, bio) => {
@@ -365,6 +364,17 @@ const updateUserData = (users, index, updatedUser) => {
     ediTprofile.value = '';
 };
 
+//function to delete the data from the localStorage
+const deleteData = (index) => {
+    let storedData = localStorage.getItem('userData');
+    let users = storedData ? JSON.parse(storedData) : [];
+    if (index >= 0 && index < users.length) {
+        users.splice(index, 1);
+        localStorage.setItem('userData', JSON.stringify(users));
+        tableData();
+    }
+}
+
 //function to fetch the name, email from the local storage and show in table row to allow viewing and editing all data
 const tableData = () => {
     const tableBody = document.querySelector('tbody');
@@ -379,6 +389,7 @@ const tableData = () => {
             <td>${user.email}</td>
             <td><button class="viewBtn" onclick="viewData(${index})">View</button></td>
             <td><button class="editBtn" onclick="editData(${index})">Edit</button></td>
+            <td><button class="deleteBtn" onclick="deleteData(${index})">Delete</button></td>
         </tr>`;
         tableBody.innerHTML += row;
     });
