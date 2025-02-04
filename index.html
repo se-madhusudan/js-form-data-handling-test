@@ -21,7 +21,7 @@
                 <input type="email" name="email" id="email" placeholder="madhusudan@gmail.com" maxlength="50" required>
 
                 <label for="phone" title="optional">Phone<span> (+91) : <span class="warning phoneWarning">only allowed 0-9 (must be 10 digits)</span></span></label>
-                <input type="tel" name="phone" id="phone" placeholder="8974563728" maxlength="10">
+                <input type="tel" name="phone" id="phone" placeholder="8974563728" pattern="^\d{10}$" maxlength="10">
 
                 <label for="gender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
                 <input type="radio" id="male" name="gender" value="male" required class="inline-block">
@@ -106,7 +106,7 @@
                         <input type="email" name="ediTemail" id="ediTemail" value="madhusudan@gmail.com" maxlength="50" required>
         
                         <label for="ediTphone" title="optional">Phone<span> (+91) : <span class="warning ediTphoneWarning">only allowed 0-9 (must be 10 digits)</span></span></label>
-                        <input type="tel" name="ediTphone" id="ediTphone" value="8974563728" maxlength="10">
+                        <input type="tel" name="ediTphone" id="ediTphone" value="8974563728" maxlength="10" pattern="^\d{10}$">
         
                         <label for="ediTgender" title="required" class="inline-block">Gender<span class="required">*</span> : </label>
                         <input type="radio" id="ediTmale" name="ediTgender" value="male" required class="inline-block" checked>

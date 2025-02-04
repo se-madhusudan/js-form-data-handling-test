@@ -39,13 +39,36 @@ detailsForm.addEventListener('input', () => {
     nextBtn.disabled = !isFormFilled;
 });
 
+//only accept digits in the phone input
+const validateInput = (e) => {
+    const input = e.target;
+    input.value = input.value.replace(/[^0-9]/g, '').slice(0, 10);
+};
+
+//removes white space from start and end
+const trimSpace = (e) => {
+    const input = e.target;
+    input.value = input.value.trim();
+}
+
+name.addEventListener('blur', trimSpace);
+email.addEventListener('blur', trimSpace);
+bio.addEventListener('blur', trimSpace);
+phone.addEventListener('input', validateInput);
+
+ediTname.addEventListener('blur', trimSpace);
+ediTemail.addEventListener('blur', trimSpace);
+ediTbio.addEventListener('blur', trimSpace);
+ediTphone.addEventListener('input', validateInput);
+
+
 //function to validate the form data and show errors, show submit pop up post data validation, calls reviewData()
 const validateData = (name, email, phone, form, bio, profile, btn) => {
     let isValid = true;
     const formType = form.id === 'detailsForm' ? '' : 'ediT';
 
     // validate name
-    if (!/^[a-zA-Z\s]{1,30}$/.test(name.value)) {
+    if (!/^[a-zA-Z][a-zA-Z\s][a-zA-Z\s]{1,28}$/.test(name.value)) {
         document.querySelector(`.${formType}nameWarning`).style.display = 'inline-block';
         isValid = false;
     } else {
@@ -77,8 +100,8 @@ const validateData = (name, email, phone, form, bio, profile, btn) => {
         document.querySelector(`.${formType}genderWarning`).style.display = 'none';
     }
 
-    // validate bio
-    if (!/^[\s\S]{1,150}$/.test(bio.value)) {
+    // validate bio - can not contain consecutive dots (`..`) or spaces (`  `) in between
+    if (!/^[a-zA-Z](?!.*?[\.]{2})(?!.*?[\s]{2})[a-zA-Z\s\.]{0,146}[a-zA-Z\.\s]$/.test(bio.value)) {
         document.querySelector(`.${formType}bioWarning`).style.display = 'inline-block';
         isValid = false;
     } else {
@@ -96,6 +119,8 @@ const validateData = (name, email, phone, form, bio, profile, btn) => {
     btn.disabled = !isValid;
     
     reviewData(profile, name.value, email.value, phone.value, gender?.value || '', bio.value);//profile - not profile.value because we want actual file input element not it's value
+
+    return isValid;
 };
 
 //calls the validate data function
@@ -114,7 +139,9 @@ editForm.addEventListener('input', (e) => {
 //show the form details pop up
 nextBtn.addEventListener('click', (e) => {
     e.preventDefault();
-    popUpSub.style.display = 'block';
+    if(validateData(name, email, phone, detailsForm, bio, profile, nextBtn)) {
+        popUpSub.style.display = 'block';
+    }
 });
 
 //cancel the details submission
